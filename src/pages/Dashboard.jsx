@@ -1,27 +1,20 @@
-// src/pages/Dashboard.jsx
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import ProductForm from "./ProductForm";
+import QRCodeDisplay from "./QRCodeDisplay";
 
 
-export default function Dashboard() {
-    const { user, signOutUser } = useAuth();
-    const navigate = useNavigate();
+const Dashboard = () => {
+const [productId, setProductId] = useState(null);
 
 
-    const handleSignOut = async () => {
-        await signOutUser();
-        navigate("/login");
-    };
+return (
+<div className="p-6">
+<h1 className="text-2xl font-bold mb-4">Dashboard</h1>
+<ProductForm onProductCreated={(id) => setProductId(id)} />
+{productId && <QRCodeDisplay productId={productId} />}
+</div>
+);
+};
 
 
-    return (
-        <div className="container">
-            <h1>Dashboard</h1>
-            <p>Welcome {user?.displayName || user?.email}</p>
-            <button onClick={handleSignOut}>Sign out</button>
-            <div className="card" style={{ marginTop: 16 }}>
-                <p>This is where you'll add the product creation & QR generation next.</p>
-            </div>
-        </div>
-    );
-}
+export default Dashboard;
