@@ -2,23 +2,55 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { db } from "../services/firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function Register() {
   const { signUp } = useAuth();
   const navigate = useNavigate();
+
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("customer");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const roleLabelMap = {
+    customer: "Full Name",
+    company: "Company Name",
+    retailer: "Retailer Name",
+  };
+
+  const roleDescriptions = {
+    customer: "I want to track my personal products",
+    company: "I'm a manufacturer creating products",
+    retailer: "I sell products to customers",
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
+
     try {
-      await signUp(email.trim(), password, displayName.trim());
-      navigate("/dashboard");
+      const userCredential = await signUp(email.trim(), password, displayName.trim());
+      const user = userCredential.user;
+
+      await setDoc(doc(db, "users", user.uid), {
+        name: displayName.trim(),
+        email: email.trim(),
+        role,
+        createdAt: new Date(),
+      });
+
+      if (role === "company") {
+        navigate("/company-dashboard");
+      } else if (role === "retailer") {
+        navigate("/retailer-dashboard");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (err) {
       setError(err.message || "Failed to register");
     } finally {
@@ -45,6 +77,7 @@ export default function Register() {
             </Link>
           </p>
         </div>
+        
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
             <div className="rounded-md bg-red-50 p-4">
@@ -63,10 +96,51 @@ export default function Register() {
               </div>
             </div>
           )}
+          
+          {/* Role Selection */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              I am a
+            </label>
+            <div className="grid grid-cols-1 gap-3">
+              {Object.entries(roleDescriptions).map(([key, description]) => (
+                <div 
+                  key={key}
+                  className={`relative border rounded-lg p-4 cursor-pointer transition-all ${
+                    role === key 
+                      ? 'border-indigo-500 bg-indigo-50 ring-2 ring-indigo-500' 
+                      : 'border-gray-300 hover:border-gray-400'
+                  }`}
+                  onClick={() => setRole(key)}
+                >
+                  <div className="flex items-center">
+                    <div className={`h-4 w-4 rounded-full border flex items-center justify-center mr-3 ${
+                      role === key ? 'border-indigo-500 bg-indigo-500' : 'border-gray-400'
+                    }`}>
+                      {role === key && (
+                        <svg className="h-2 w-2 text-white" fill="currentColor" viewBox="0 0 8 8">
+                          <circle cx="4" cy="4" r="3" />
+                        </svg>
+                      )}
+                    </div>
+                    <div>
+                      <span className="block text-sm font-medium text-gray-900 capitalize">
+                        {key}
+                      </span>
+                      <span className="block text-xs text-gray-500 mt-1">
+                        {description}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="display-name" className="block text-sm font-medium text-gray-700 mb-1">
-                Full Name
+                {roleLabelMap[role]}
               </label>
               <input
                 id="display-name"
@@ -75,7 +149,7 @@ export default function Register() {
                 autoComplete="name"
                 required
                 className="appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Full Name"
+                placeholder={roleLabelMap[role]}
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
               />
@@ -107,7 +181,7 @@ export default function Register() {
                 autoComplete="new-password"
                 required
                 className="appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
+                placeholder="Password (min. 6 characters)"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />

@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { db } from "../services/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function Login() {
   const { signIn } = useAuth();
@@ -16,6 +18,27 @@ export default function Login() {
     setError("");
     setLoading(true);
     try {
+      // 1. Sign in
+      const userCred = await signIn(email.trim(), password);
+
+      // 2. Fetch role from Firestore
+      const userDoc = await getDoc(doc(db, "users", userCred.user.uid));
+      if (userDoc.exists()) {
+        const { role } = userDoc.data();
+
+        // 3. Redirect based on role
+        if (role === "company") {
+          navigate("/company-dashboard");
+        } else if (role === "retailer") {
+          navigate("/retailer-dashboard");
+        } else if (role === "customer") {
+          navigate("/dashboard");
+        } else {
+          navigate("/dashboard"); // fallback
+        }
+      } else {
+        setError("User role not found. Please contact support.");
+      }
       await signIn(email.trim(), password);
       navigate("/dashboard");
     } catch (err) {
