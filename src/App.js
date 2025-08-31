@@ -5,6 +5,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import AdminDashboard from "./pages/AdminDashboard";
+import VerifyProduct from "./pages/VerifyProduct";
+import ProductDetails from "./pages/ProductDetails";
 import "./App.css";
 
 export default function App() {
@@ -17,7 +20,10 @@ export default function App() {
           <Route path="/register" element={<Register />} />
 
           <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/adminDashboard" element={<AdminDashboard />} />
+            <Route path="/verify" element={<VerifyProduct />} />
+            <Route path="/verify/:id" element={<ProductDetails />} />
           </Route>
 
           <Route path="*" element={<div style={{padding:24}}>Not Found</div>} />

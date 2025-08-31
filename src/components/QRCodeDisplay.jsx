@@ -19,18 +19,18 @@ const QRCodeDisplay = ({ productId }) => {
 
 
     return (
-    <div className="mt-6 text-center" ref={svgRef}>
-    <h2 className="text-lg font-semibold mb-2">Product QR Code</h2>
-    <QRCodeSVG value={productId} size={180} />
-    <div className="mt-4">
-    <button
-    onClick={downloadQR}
-    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-    >
-    Download QR
-    </button>
-    </div>
-    </div>
+        <div className="mt-6 text-center" ref={svgRef}>
+            <h2 className="text-lg font-semibold mb-2">Product QR Code</h2>
+            <QRCodeSVG value={productId} size={180} />
+            <div className="mt-4">
+                <button
+                onClick={downloadQR}
+                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                >
+                    Download QR
+                </button>
+            </div>
+        </div>
     );
 };
 
