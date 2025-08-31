@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ManualVerificationForm from "./ManualVerificationForm";
-import QRScanner from "./QRScanner";
+import ManualVerificationForm from "../components/ManualVerificationForm";
+import QRScanner from "../components/QRScanner";
 
 const VerifyProduct = () => {
   const [mode, setMode] = useState("manual"); // manual | qr

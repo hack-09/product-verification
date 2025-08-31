@@ -1,13 +1,15 @@
 // src/App.jsx
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import AdminDashboard from "./pages/AdminDashboard";
 import VerifyProduct from "./pages/VerifyProduct";
-import ProductDetails from "./pages/ProductDetails";
+import ProductDetails from "./components/ProductDetails";
+import CompanyDashboard from "./pages/CompanyDashboard";
+import RetailerDashboard from "./pages/RetailerDashboard";
+import CustomerDashboard from "./pages/CustomerDashboard";
+import Unauthorized from "./components/Unauthorized";
 import "./App.css";
 
 export default function App() {
@@ -15,21 +17,27 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          {/* Public routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
+          {/* Protected routes */}
           <Route element={<ProtectedRoute />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/adminDashboard" element={<AdminDashboard />} />
             <Route path="/verify" element={<VerifyProduct />} />
             <Route path="/verify/:id" element={<ProductDetails />} />
+
+            {/* Dashboards must end with /* if they have nested routes */}
+            <Route path="/company/*" element={<CompanyDashboard />} />
+            <Route path="/retailer/*" element={<RetailerDashboard />} />
+            <Route path="/customer/*" element={<CustomerDashboard />} />
           </Route>
 
-          <Route path="*" element={<div style={{padding:24}}>Not Found</div>} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
+
+          {/* Default route */}
+          <Route path="/" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
   );
 }
-

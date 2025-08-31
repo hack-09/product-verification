@@ -45,11 +45,11 @@ export default function Register() {
       });
 
       if (role === "company") {
-        navigate("/company-dashboard");
+        navigate("/company");
       } else if (role === "retailer") {
-        navigate("/retailer-dashboard");
+        navigate("/retailer");
       } else {
-        navigate("/dashboard");
+        navigate("/customer");
       }
     } catch (err) {
       setError(err.message || "Failed to register");

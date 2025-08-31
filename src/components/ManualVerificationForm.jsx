@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { db } from "../services/firebase"; 
 import { doc, getDoc } from "firebase/firestore";
+import ProductDetails from "../components/ProductDetails";
+import { useNavigate } from "react-router-dom";
 
 const ManualVerificationForm = () => {
   const [code, setCode] = useState("");
   const [result, setResult] = useState(null);
+  const navigate = useNavigate();
 
   const handleVerify = async () => {
     if (!code.trim()) {
@@ -17,8 +20,7 @@ const ManualVerificationForm = () => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        const product = docSnap.data();
-        setResult(`✅ Product Found: ${product.name}, Batch: ${product.batch}`);
+        navigate(`/verify/${docSnap.id}`);
       } else {
         setResult("❌ Invalid Code! Product not found.");
       }

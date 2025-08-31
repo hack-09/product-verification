@@ -1,5 +1,6 @@
 // src/pages/Login.jsx
 import { useState } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { db } from "../services/firebase";
@@ -12,6 +13,18 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const authUser = JSON.parse(localStorage.getItem("authUser"));
+    if (authUser) {
+      console.log("AuthUser from localStorage:", authUser); 
+      console.log("AuthUser Role:", authUser.role); 
+      if (authUser.role === "retailer") navigate("/retailer");
+      else if (authUser.role === "company") navigate("/company");
+      else if (authUser.role === "customer") navigate("/customer");
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,21 +39,21 @@ export default function Login() {
       if (userDoc.exists()) {
         const { role } = userDoc.data();
 
+        localStorage.setItem("authUser", JSON.stringify({role: role, uid: userCred.user.uid, email: userCred.user.email}));
+
         // 3. Redirect based on role
         if (role === "company") {
-          navigate("/company-dashboard");
+          navigate("/company");
         } else if (role === "retailer") {
-          navigate("/retailer-dashboard");
+          navigate("/retailer");
         } else if (role === "customer") {
-          navigate("/dashboard");
-        } else {
-          navigate("/dashboard"); // fallback
+          navigate("/customer");
         }
       } else {
         setError("User role not found. Please contact support.");
       }
-      await signIn(email.trim(), password);
-      navigate("/dashboard");
+      // await signIn(email.trim(), password);
+      // navigate("/dashboard");
     } catch (err) {
       setError(err.message || "Failed to log in");
     } finally {
