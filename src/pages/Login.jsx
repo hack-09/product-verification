@@ -40,20 +40,11 @@ export default function Login() {
         const { role } = userDoc.data();
 
         localStorage.setItem("authUser", JSON.stringify({role: role, uid: userCred.user.uid, email: userCred.user.email}));
+        navigate(`/${role}`);
 
-        // 3. Redirect based on role
-        if (role === "company") {
-          navigate("/company");
-        } else if (role === "retailer") {
-          navigate("/retailer");
-        } else if (role === "customer") {
-          navigate("/customer");
-        }
       } else {
         setError("User role not found. Please contact support.");
       }
-      // await signIn(email.trim(), password);
-      // navigate("/dashboard");
     } catch (err) {
       setError(err.message || "Failed to log in");
     } finally {
