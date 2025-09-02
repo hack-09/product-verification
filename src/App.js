@@ -12,7 +12,6 @@ import CompanyDashboard from "./pages/CompanyDashboard";
 import RetailerDashboard from "./pages/RetailerDashboard";
 import CustomerDashboard from "./pages/CustomerDashboard";
 import Unauthorized from "./components/Unauthorized";
-
 import "./App.css";
 
 export default function App() {
@@ -26,8 +25,8 @@ export default function App() {
 
           {/* Protected routes */}
           <Route element={<ProtectedRoute allowedRoles={["company", "retailer", "customer"]} />}>
-            <Route path="/verify" element={<VerifyProduct />} />
             <Route path="/verify/:id" element={<ProductDetails />} />
+            <Route path=":role/products/verify/:id" element={<ProductDetails />} />
           </Route>
 
           {/* Role-specific dashboards */}

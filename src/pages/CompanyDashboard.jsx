@@ -112,7 +112,7 @@ function CompanyHome() {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
             </svg>
-            Add New Product
+            Add New Product 
           </Link>
           <Link 
             to="products" 
@@ -132,17 +132,7 @@ function CompanyHome() {
 function CompanyAddProduct() {
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="bg-white rounded-lg shadow p-6">
-        <div className="flex items-center mb-6">
-          <div className="p-2 rounded-full bg-indigo-100 text-indigo-600 mr-3">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg>
-          </div>
-          <h1 className="text-2xl font-bold text-gray-800">Add New Product</h1>
-        </div>
-        <ProductForm />
-      </div>
+      <ProductForm />
     </div>
   );
 }
@@ -251,7 +241,7 @@ function CompanyProducts() {
                           QR Code
                         </button>
                         <Link 
-                          to={`product/${product.id}`} 
+                          to={`verify/${product.id}`} 
                           className="text-indigo-600 hover:text-indigo-900"
                         >
                           Details
