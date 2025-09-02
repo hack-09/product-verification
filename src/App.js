@@ -6,12 +6,10 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import VerifyProduct from "./pages/VerifyProduct";
 import ProductDetails from "./components/ProductDetails";
 import CompanyDashboard from "./pages/CompanyDashboard";
 import RetailerDashboard from "./pages/RetailerDashboard";
 import CustomerDashboard from "./pages/CustomerDashboard";
-import Unauthorized from "./components/Unauthorized";
 import "./App.css";
 
 export default function App() {

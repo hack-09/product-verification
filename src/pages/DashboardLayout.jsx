@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import Footer from "../components/Footer";
 
 export default function DashboardLayout({ children, role }) {
   const { user, signOutUser } = useAuth();
@@ -143,6 +144,7 @@ export default function DashboardLayout({ children, role }) {
             {children}
           </div>
         </main>
+        {<Footer />}
       </div>
     </div>
   );

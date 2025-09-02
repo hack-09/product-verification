@@ -1,17 +1,15 @@
 // src/dashboards/RetailerDashboard.jsx
 import React, { useState, useEffect } from "react";
 import DashboardLayout from "../pages/DashboardLayout";
-import QRScanner from "../components/QRScanner";
 import VerifyProduct from "../pages/VerifyProduct";
 import { db, auth } from "../services/firebase";
-import { collection, query, where, onSnapshot, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { Routes, Route, Link } from "react-router-dom";
 import {
   QrCodeIcon,
   ClockIcon,
   CheckBadgeIcon,
   XCircleIcon,
-  DocumentMagnifyingGlassIcon,
   ChartBarIcon
 } from "@heroicons/react/24/outline";
 
