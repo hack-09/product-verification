@@ -1,5 +1,5 @@
 // src/App.jsx
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
@@ -13,6 +13,9 @@ import Unauthorized from "./components/Unauthorized";
 import "./App.css";
 
 export default function App() {
+  const authUser = JSON.parse(localStorage.getItem("authUser"));
+  const role = authUser?.role;
+
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -27,14 +30,14 @@ export default function App() {
             <Route path="/verify/:id" element={<ProductDetails />} />
 
             {/* Dashboards must end with /* if they have nested routes */}
-            <Route path="/company/*" element={<CompanyDashboard />} />
-            <Route path="/retailer/*" element={<RetailerDashboard />} />
-            <Route path="/customer/*" element={<CustomerDashboard />} />
+            {role==="company" && (<Route path="/company/*" element={<CompanyDashboard />} />)}
+            {role==="retailer" && (<Route path="/retailer/*" element={<RetailerDashboard />} />)}
+            {role==="customer" && (<Route path="/customer/*" element={<CustomerDashboard />} />)}
           </Route>
 
           <Route path="/unauthorized" element={<Unauthorized />} />
 
-          {/* Default route */}
+          <Route path="*" element={<Navigate to="/login" replace />} />
           <Route path="/" element={<Login />} />
         </Routes>
       </BrowserRouter>

@@ -14,8 +14,7 @@ import {
   BuildingStorefrontIcon,
   CubeIcon,
   TagIcon,
-  CalendarDaysIcon,
-  CurrencyDollarIcon
+  CalendarDaysIcon
 } from "@heroicons/react/24/outline";
 
 export default function AddProductForm() {
@@ -277,14 +276,14 @@ export default function AddProductForm() {
             <label className="block text-sm font-medium text-gray-700 mb-1">Base Price</label>
             <div className="relative rounded-md shadow-sm">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <CurrencyDollarIcon className="h-5 w-5 text-gray-400" />
+                <span className="text-gray-500">₹</span>
               </div>
               <input
                 type="number"
                 placeholder="0.00"
                 min="0"
                 step="0.01"
-                className="block w-full pl-10 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="block w-full pl-8 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
                 value={product.basePrice}
                 onChange={(e) => setProduct({ ...product, basePrice: e.target.value })}
                 required
@@ -409,14 +408,14 @@ export default function AddProductForm() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">Price (optional)</label>
                   <div className="relative rounded-md shadow-sm">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <CurrencyDollarIcon className="h-5 w-5 text-gray-400" />
+                      <span className="text-gray-500">₹</span>
                     </div>
                     <input
                       type="number"
                       placeholder="Leave empty to use base price"
                       min="0"
                       step="0.01"
-                      className="block w-full pl-10 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      className="block w-full pl-8 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
                       value={batch.price}
                       onChange={(e) => handleBatchChange(index, "price", e.target.value)}
                     />
