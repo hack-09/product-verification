@@ -173,7 +173,7 @@ REACT_APP_FIREBASE_APP_ID=your_app_id
 |-------------------|-------------------|-------------|
 | <img src="https://github.com/user-attachments/assets/8c4e2a60-3238-4bee-b8f0-3cd8dbc28c25" width="300" /> | <img src="https://github.com/user-attachments/assets/ccb9e6b6-b468-4835-9588-837b2b99d642" width="300" /> | <img src="https://github.com/user-attachments/assets/f5709f2e-0d20-416e-883c-6153ca9049a8" width="300" /> |
 
-| Product Details | Verification History | Mobile View |
+| Product Details | Manual Code Verify | Mobile View |
 |-----------------|----------------------|-------------|
 | <img src="https://github.com/user-attachments/assets/be259258-7cd1-4197-9c0f-3e4a3ec79b36" width="300" /> | <img src="https://github.com/user-attachments/assets/83473c70-ed75-4bc7-9f1b-28b2e223ebc6" width="300" /> | <img src="https://via.placeholder.com/300x500/4a5568/ffffff?text=Mobile+View" width="300" /> |
 
@@ -239,7 +239,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## 🆘 Support
 
-For support, email your@email.com or join our Slack channel.
+For support, email priyanshukumar9780@email.com.
 
 ---
 
