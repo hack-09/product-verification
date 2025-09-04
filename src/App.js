@@ -2,6 +2,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import { ThemeProvider } from "./context/ThemeContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import Login from "./pages/Login";
@@ -10,20 +11,26 @@ import ProductDetails from "./components/ProductDetails";
 import CompanyDashboard from "./pages/CompanyDashboard";
 import RetailerDashboard from "./pages/RetailerDashboard";
 import CustomerDashboard from "./pages/CustomerDashboard";
+import VerifyProduct from "./pages/VerifyProduct";
+import LandingPage from "./pages/LandingPage";
 import "./App.css";
 
 export default function App() {
+  const role = localStorage.getItem("authUser") ? JSON.parse(localStorage.getItem("authUser")).role : null;
   return (
+    <ThemeProvider>
     <AuthProvider>
       <BrowserRouter>
         <Routes>
           {/* Public routes */}
+          {!role && <Route path="/" element={<LandingPage />} />}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/verify" element={<VerifyProduct />} />
+          <Route path="/verify/:id" element={<ProductDetails />} />
 
           {/* Protected routes */}
           <Route element={<ProtectedRoute allowedRoles={["company", "retailer", "customer"]} />}>
-            <Route path="/verify/:id" element={<ProductDetails />} />
             <Route path=":role/products/verify/:id" element={<ProductDetails />} />
           </Route>
 
@@ -55,13 +62,11 @@ export default function App() {
             }
           />
 
-          {/* Default redirect */}
-          <Route path="/" element={<Navigate to="/login" replace />} />
-
           {/* Catch all */}
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
+    </ThemeProvider>
   );
 }

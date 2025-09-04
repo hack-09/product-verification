@@ -62,7 +62,7 @@ function CompanyHome() {
   }, []);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 m-5">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <h1 className="text-2xl font-bold text-gray-900">Company Overview</h1>
         <div className="text-sm text-gray-500">Last updated: Just now</div>
@@ -147,13 +147,7 @@ function CompanyHome() {
 function CompanyAddProduct() {
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="bg-white rounded-lg shadow-sm border p-6">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-          <PlusIcon className="h-6 w-6 mr-2 text-indigo-600" />
-          Add New Product
-        </h1>
-        <ProductForm />
-      </div>
+      <ProductForm />
     </div>
   );
 }
@@ -188,7 +182,7 @@ function CompanyProducts() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 m-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <h1 className="text-2xl font-bold text-gray-900">My Products</h1>
         <Link 

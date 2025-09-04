@@ -27,7 +27,7 @@ export default function RetailerDashboard() {
 
 function RetailerHome() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 m-5">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900">Retailer Dashboard</h1>
         <p className="mt-1 text-gray-600">Quick actions for scanning & verifying products</p>

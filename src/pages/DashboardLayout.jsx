@@ -43,7 +43,7 @@ export default function DashboardLayout({ children, role }) {
   const handleSignOut = async () => {
     localStorage.removeItem("authUser");
     await signOutUser();
-    navigate("/login");
+    navigate("/");
   };
 
   // Sidebar links vary by role with Heroicons
@@ -223,7 +223,7 @@ export default function DashboardLayout({ children, role }) {
         </header>
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto p-4">
+        <main className="flex-1 overflow-y-auto">
           <div className="max-w-6xl mx-auto">
             {children}
           </div>
