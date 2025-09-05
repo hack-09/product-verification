@@ -61,6 +61,8 @@ export default function App() {
             }
           />
 
+          <Route path="*" element={<Login />} />
+
         </Routes>
       </BrowserRouter>
     </AuthProvider>
