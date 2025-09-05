@@ -5,8 +5,10 @@ import jsQR from "jsqr";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
 import { QrCodeIcon, CameraIcon } from "@heroicons/react/24/outline";
+import { useTheme } from "../context/ThemeContext";
 
 export default function QRScanner() {
+  const { theme, toggleTheme } = useTheme();
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const navigate = useNavigate();

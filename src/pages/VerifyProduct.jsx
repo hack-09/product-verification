@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import ManualVerificationForm from "../components/ManualVerificationForm";
 import QRScanner from "../components/QRScanner";
+import { useTheme } from "../context/ThemeContext";
 import { 
   QrCodeIcon, 
   DocumentTextIcon, 
@@ -10,10 +11,11 @@ import {
 } from "@heroicons/react/24/outline";
 
 const VerifyProduct = () => {
+  const { theme, toggleTheme } = useTheme();
   const [mode, setMode] = useState("qr"); // Default to QR for mobile convenience
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
+    <div className="min-h-screen dark:bg-grey-800 text-gray-900 dark:text-white from-blue-50 to-indigo-100 py-8 px-4">
       <div className="max-w-md mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
         {/* Header Section */}
         <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 text-center">
