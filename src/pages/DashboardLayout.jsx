@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 import Footer from "../components/Footer";
 import {
   ChevronLeftIcon,
@@ -13,11 +14,14 @@ import {
   CubeIcon,
   QrCodeIcon,
   ClockIcon,
-  ArrowRightOnRectangleIcon
+  ArrowRightOnRectangleIcon,
+  SunIcon,
+  MoonIcon
 } from "@heroicons/react/24/outline";
 
 export default function DashboardLayout({ children, role }) {
   const { user, signOutUser } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -90,7 +94,7 @@ export default function DashboardLayout({ children, role }) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex transition-colors duration-200">
       {/* Mobile sidebar overlay */}
       {isMobile && isMobileSidebarOpen && (
         <div 
@@ -102,7 +106,7 @@ export default function DashboardLayout({ children, role }) {
       {/* Sidebar */}
       <div 
         className={`
-          bg-indigo-800 text-white transition-all duration-300 flex flex-col
+          bg-indigo-800 dark:bg-gray-800 text-white transition-all duration-300 flex flex-col
           fixed lg:relative inset-y-0 left-0 z-50
           ${isMobile ? (
             isMobileSidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -113,10 +117,10 @@ export default function DashboardLayout({ children, role }) {
       >
         <div className="flex flex-col h-full">
           {/* Brand section */}
-          <div className="flex items-center justify-between h-14 px-4 bg-indigo-900">
+          <div className="flex items-center justify-between h-14 px-4 bg-indigo-900 dark:bg-gray-900">
             {(!isSidebarCollapsed || isMobile) && (
               <h1 className="text-lg font-bold flex items-center">
-                <span className="bg-white text-indigo-800 rounded-md p-1 mr-2">
+                <span className="bg-white text-indigo-800 dark:bg-gray-700 dark:text-white rounded-md p-1 mr-2">
                   <CubeIcon className="h-5 w-5" />
                 </span>
                 TrueCheck
@@ -124,7 +128,7 @@ export default function DashboardLayout({ children, role }) {
             )}
             <button
               onClick={toggleSidebar}
-              className="p-1 rounded hover:bg-indigo-700"
+              className="p-1 rounded hover:bg-indigo-700 dark:hover:bg-gray-700"
             >
               {isMobile ? (
                 <XMarkIcon className="h-5 w-5" />
@@ -138,9 +142,9 @@ export default function DashboardLayout({ children, role }) {
 
           {/* User info - only show when expanded */}
           {(!isSidebarCollapsed || isMobile) && (
-            <div className="p-3 border-b border-indigo-700">
+            <div className="p-3 border-b border-indigo-700 dark:border-gray-700">
               <div className="flex items-center">
-                <div className="h-8 w-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-semibold text-sm">
+                <div className="h-8 w-8 rounded-full bg-indigo-600 dark:bg-gray-700 flex items-center justify-center text-white font-semibold text-sm">
                   {user?.displayName
                     ? user.displayName.charAt(0).toUpperCase()
                     : user?.email?.charAt(0).toUpperCase()}
@@ -149,7 +153,7 @@ export default function DashboardLayout({ children, role }) {
                   <p className="text-xs font-medium truncate">
                     {user?.displayName || user?.email}
                   </p>
-                  <p className="text-xs text-indigo-200 capitalize">{role}</p>
+                  <p className="text-xs text-indigo-200 dark:text-gray-300 capitalize">{role}</p>
                 </div>
               </div>
             </div>
@@ -165,8 +169,8 @@ export default function DashboardLayout({ children, role }) {
                   onClick={handleLinkClick}
                   className={`flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                     isActiveLink(link.to)
-                      ? "bg-indigo-900 text-white"
-                      : "text-indigo-100 hover:bg-indigo-700"
+                      ? "bg-indigo-900 dark:bg-gray-700 text-white"
+                      : "text-indigo-100 dark:text-gray-300 hover:bg-indigo-700 dark:hover:bg-gray-700"
                   }`}
                   title={isSidebarCollapsed && !isMobile ? link.label : ""}
                 >
@@ -178,10 +182,33 @@ export default function DashboardLayout({ children, role }) {
               ))}
             </div>
 
-            <div className="p-3 border-t border-indigo-700 mt-auto">
+            {/* Theme Toggle */}
+            <div className="mt-4 p-3 border-t border-indigo-700 dark:border-gray-700">
+              <button
+                onClick={toggleTheme}
+                className={`flex items-center w-full px-3 py-2 text-sm font-medium text-indigo-100 dark:text-gray-300 bg-indigo-700 dark:bg-gray-700 rounded-md hover:bg-indigo-600 dark:hover:bg-gray-600 transition-colors ${
+                  (isSidebarCollapsed && !isMobile) ? "justify-center" : ""
+                }`}
+                title={(isSidebarCollapsed && !isMobile) ? "Toggle theme" : ""}
+              >
+                {theme === 'light' ? (
+                  <MoonIcon className="h-5 w-5" />
+                ) : (
+                  <SunIcon className="h-5 w-5" />
+                )}
+                {(!isSidebarCollapsed || isMobile) && (
+                  <span className="ml-2">
+                    {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+                  </span>
+                )}
+              </button>
+            </div>
+
+            {/* Sign out button */}
+            <div className="p-3 border-t border-indigo-700 dark:border-gray-700">
               <button
                 onClick={handleSignOut}
-                className={`flex items-center w-full px-3 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-500 transition-colors ${
+                className={`flex items-center w-full px-3 py-2 text-sm font-medium text-white bg-indigo-600 dark:bg-red-600 rounded-md hover:bg-indigo-500 dark:hover:bg-red-500 transition-colors ${
                   (isSidebarCollapsed && !isMobile) ? "justify-center" : ""
                 }`}
                 title={(isSidebarCollapsed && !isMobile) ? "Sign out" : ""}
@@ -199,15 +226,15 @@ export default function DashboardLayout({ children, role }) {
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
         {/* Top header bar */}
-        <header className="bg-white border-b h-14 flex items-center justify-between px-4 shadow-sm">
+        <header className="bg-white dark:bg-gray-800 border-b dark:border-gray-700 h-14 flex items-center justify-between px-4 shadow-sm">
           <div className="flex items-center">
             <button
-              className="lg:hidden p-2 rounded-md text-gray-600 mr-2"
+              className="lg:hidden p-2 rounded-md text-gray-600 dark:text-gray-300 mr-2"
               onClick={() => setIsMobileSidebarOpen(true)}
             >
               <Bars3Icon className="h-5 w-5" />
             </button>
-            <h2 className="text-lg font-semibold text-gray-800">
+            <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
               {currentLinks.find(link => isActiveLink(link.to))?.label || "Dashboard"}
             </h2>
           </div>
@@ -223,7 +250,7 @@ export default function DashboardLayout({ children, role }) {
         </header>
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto p-4">
           <div className="max-w-6xl mx-auto">
             {children}
           </div>
