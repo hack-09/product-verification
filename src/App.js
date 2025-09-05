@@ -22,7 +22,15 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           {/* Public routes */}
-          {!role && <Route path="/" element={<LandingPage />} />}
+          <Route path="/"
+            element={
+              role ? (
+                <Navigate to={`/${role}`} replace />
+              ) : (
+                <LandingPage />
+              )
+          }/>
+
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verify" element={<VerifyProduct />} />
@@ -60,9 +68,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-
-          <Route path="*" element={<Login />} />
-
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
