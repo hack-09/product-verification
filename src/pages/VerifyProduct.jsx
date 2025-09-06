@@ -28,7 +28,7 @@ const VerifyProduct = () => {
           <p className="mt-2 text-blue-100">Scan or enter code to check if your product is genuine</p>
         </div>
 
-        <div className="p-6">
+        <div className="p-2">
           {/* Mode Selection Tabs */}
           <div className="flex bg-gray-100 p-1 rounded-xl mb-6">
             <button
@@ -69,7 +69,7 @@ const VerifyProduct = () => {
           </div>
 
           {/* Scanner/Form Container */}
-          <div className="rounded-lg bg-gray-50 p-4 border border-gray-200">
+          <div className="rounded-lg bg-gray-50 p-1 border border-gray-200">
             {mode === "manual" ? <ManualVerificationForm /> : <QRScanner />}
           </div>
 

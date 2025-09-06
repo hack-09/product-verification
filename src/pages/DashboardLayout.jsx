@@ -250,7 +250,7 @@ export default function DashboardLayout({ children, role }) {
         </header>
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto p-4">
+        <main className="flex-1 overflow-y-auto p-1">
           <div className="max-w-6xl mx-auto">
             {children}
           </div>

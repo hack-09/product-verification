@@ -114,14 +114,14 @@ export default function QRScanner() {
   }, [cameraActive]);
 
   return (
-    <div className="w-full max-w-md mx-auto p-4">
+    <div className="w-full max-w-md mx-auto p-1">
       <div className="flex items-center mb-4">
         <QrCodeIcon className="h-5 w-5 text-gray-500 mr-2" />
         <h2 className="text-lg font-medium text-gray-900">Scan QR Code</h2>
       </div>
 
       {!cameraActive ? (
-        <div className="border-2 border-dashed border-gray-300 rounded-lg h-64 flex flex-col items-center justify-center p-4 text-center">
+        <div className="border-2 border-dashed border-gray-300 rounded-lg h-64 flex flex-col items-center justify-center p-1 text-center">
           <CameraIcon className="h-12 w-12 text-gray-400 mb-4" />
           <p className="text-gray-500 mb-4">Camera not active</p>
           <button
