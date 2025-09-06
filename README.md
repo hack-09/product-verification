@@ -152,7 +152,7 @@ This project is deployed on **Vercel** for optimal performance and scalability:
 2. **Configure environment variables** for Firebase in Vercel dashboard
 3. **Deploy automatically** with every git push to main branch
 
-👉 [Live Demo](https://product-verification-m9yw.vercel.app)
+👉 [Live Demo](https://product-verification-two.vercel.app)
 
 ### Environment Variables
 Create a `.env` file in the root directory:
