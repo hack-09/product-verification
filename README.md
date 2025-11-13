@@ -1,4 +1,4 @@
-# 🏷️ Product Verification System (QR Code Scanner)
+# 🏷️ TrueCheck : Product Verification System
 
 ## 📌 Overview
 
