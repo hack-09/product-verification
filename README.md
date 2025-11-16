@@ -1,19 +1,3 @@
-Yes, absolutely! For a GitHub README, you should remove the code blocks and focus on:
-
-1. **Project overview**
-2. **Features**
-3. **Tech stack**
-4. **Screenshots**
-5. **Installation instructions**
-6. **Usage**
-7. **Architecture diagrams**
-8. **Contributing guidelines**
-9. **License**
-
-Here's the cleaned-up version for your GitHub README:
-
----
-
 # 🔍 TrueCheck: Enterprise Product Verification & Supply Chain Platform
 
 <div align="center">
@@ -234,12 +218,3 @@ For support, email priyanshukumar9780@email.com or open an issue on GitHub.
 
 </div>
 
----
-
-This version is much more suitable for GitHub as it:
-- Focuses on high-level concepts
-- Uses visual elements (badges, screenshots, tables)
-- Provides clear installation and usage instructions
-- Shows the architecture without code clutter
-- Maintains professional presentation
-- Is easy to read and navigate
